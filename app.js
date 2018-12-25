@@ -23,11 +23,19 @@ app.set('view engine', 'pug');
 app.use(express.static(path.join(__dirname,'public')))
 app.set('port', process.env.PORT || 8000);
 
-app.use(morgan('dev'));
+if (process.env.NODE_ENV ==='production') {
+    app.use(morgan('combined'))
+} else {
+    app.use(morgan('dev'))
+}
+
+// NODE_ENV는 배포환경인지 개발환경인지 판단할 수 있는 환경변수
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser(process.env.COOKIE_SECRET))
-app.use(session({
+
+const sessionOption = {
     resave: false,
     saveUninitialized: false,
     secret: process.env.COOKIE_SECRET,
@@ -35,9 +43,13 @@ app.use(session({
         httpOnly: true,
         secure: false,
     }
-}))
+}
 
+if (process.env.NODE_ENV ==='production') {
+    sessionOption.proxy = true;
+}
 
+app.use(session(sessionOption))
 app.use(flash());
 
 app.use('/', indexRouter);
@@ -55,4 +67,6 @@ app.use((err, req, res) => {
     res.render('error')
 })
 
-app.listen(8000, '0.0.0.0');
+app.listen(app.get('port'), () => {
+    console.log(app.get('port'), '번 포트에서 대기중');
+  });
