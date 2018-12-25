@@ -4,7 +4,8 @@ const morgan = require('morgan'); // logger api
 const cookieParser = require('cookie-parser');
 const session = require('express-session'); // 휘발성 mes api
 const flash = require('connect-flash');
-const passport = require('passport') //passport 연결.
+const axios = require('axios')
+// const passport = require('passport') //passport 연결.
 require('dotenv').config();
 
 const indexRouter = require('./routes');
@@ -21,8 +22,8 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 app.use(express.static(path.join(__dirname,'public')))
 app.set('port', process.env.PORT || 8000);
-app.use(morgan('dev'));
 
+app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser(process.env.COOKIE_SECRET))
