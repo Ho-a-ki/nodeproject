@@ -28,3 +28,8 @@ AWS > LightSail 에서 인스턴스 생성.
 MySQL 설치 후 git clone.
 
 git clone https://github.com/Ho-a-ki/nodeproject.git
+
+pm2
+
+pm2 list
+pm2 kill
