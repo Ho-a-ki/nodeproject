@@ -17,4 +17,10 @@ app.use((req, res, next) => {
 //     console.log(app.get('port'), '번 포트에서 대기중');
 //   });
 
-app.listen(8000, '0.0.0.0');
+// app.listen(8000, '0.0.0.0');
+
+
+app.listen(process.env.PORT,process.env.IP,() => {
+    console.log("YelpCamp Server has started.")
+})
+

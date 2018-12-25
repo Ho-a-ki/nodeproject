@@ -29,7 +29,12 @@ MySQL 설치 후 git clone.
 
 git clone https://github.com/Ho-a-ki/nodeproject.git
 
-pm2
+* pm2
 
 pm2 list
 pm2 kill
+
+* 아파치 끄기
+
+cd /opt/bitnami
+sudo ./ctlscript.sh stop apache
